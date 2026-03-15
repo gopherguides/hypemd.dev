@@ -1,4 +1,5 @@
 {{define "main"}}
+    {{if eq .PagePath "/"}}
         <!-- Hero Section -->
         <div class="mb-16 pt-8">
             <div class="flex items-center gap-2 text-emerald-400 text-sm mb-6 font-mono">
@@ -65,29 +66,80 @@
                 </a>
             </div>
             <div class="space-y-4">
-                {{range $i, $a := .Articles}}{{if lt $i 3}}
+                {{range first 3 .Articles}}
                 <article class="group py-4 border-b border-gray-800 hover:bg-gray-900/50 transition-colors -mx-4 px-4">
                     <div class="flex items-start gap-4">
                         <div class="text-gray-500 text-xs font-mono whitespace-nowrap pt-1">
-                            {{$a.FormattedDate}}
+                            {{.FormattedDate}}
                         </div>
                         <div class="flex-1 min-w-0">
                             <h2 class="text-lg font-mono mb-1">
-                                <a href="{{$a.URL}}" class="text-white hover:text-emerald-400 transition-colors">
-                                    {{$a.Title}}
+                                <a href="{{.URL}}" class="text-white hover:text-emerald-400 transition-colors">
+                                    {{.Title}}
                                 </a>
                             </h2>
-                            {{if $a.SEODescription}}
-                            <p class="text-gray-400 text-sm line-clamp-2">{{$a.SEODescription}}</p>
+                            {{if .SEODescription}}
+                            <p class="text-gray-400 text-sm line-clamp-2">{{.SEODescription}}</p>
                             {{end}}
                         </div>
-                        <a href="{{$a.URL}}" class="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-sm">
+                        <a href="{{.URL}}" class="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-sm">
                             &rarr;
                         </a>
                     </div>
                 </article>
-                {{end}}{{end}}
+                {{end}}
             </div>
         </div>
         {{end}}
+
+    {{else}}
+        <!-- Blog Listing Page -->
+        <div class="pt-8">
+            <h1 class="text-4xl font-bold mb-2 font-mono">Blog</h1>
+            <p class="text-gray-400 font-mono mb-8">Tutorials, guides, and updates from the Hype project.</p>
+
+            {{if .Articles}}
+            <div class="flex items-center gap-2 text-emerald-400 text-sm mb-4 font-mono">
+                <span class="text-gray-500">$</span>
+                <span>ls -la articles/</span>
+            </div>
+            <div class="text-gray-500 text-xs font-mono pb-2 border-b border-gray-800">
+                total {{len .Articles}}
+            </div>
+            <div class="space-y-4 mt-4">
+                {{range .Articles}}
+                <article class="group py-4 border-b border-gray-800 hover:bg-gray-900/50 transition-colors -mx-4 px-4">
+                    <div class="flex items-start gap-4">
+                        <div class="text-gray-500 text-xs font-mono whitespace-nowrap pt-1">
+                            {{.FormattedDate}}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h2 class="text-lg font-mono mb-1">
+                                <a href="{{.URL}}" class="text-white hover:text-emerald-400 transition-colors">
+                                    {{.Title}}
+                                </a>
+                            </h2>
+                            {{if .SEODescription}}
+                            <p class="text-gray-400 text-sm line-clamp-2">{{.SEODescription}}</p>
+                            {{end}}
+                            <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 font-mono">
+                                {{if .Author}}<span>@{{.Author}}</span>{{end}}
+                                {{if .ReadingTime}}<span>~{{.ReadingTime}}m</span>{{end}}
+                                {{if .Tags}}
+                                <div class="flex gap-1">
+                                    {{range .Tags}}<span class="text-emerald-600">#{{.}}</span>{{end}}
+                                </div>
+                                {{end}}
+                            </div>
+                        </div>
+                        <a href="{{.URL}}" class="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-sm">
+                            &rarr;
+                        </a>
+                    </div>
+                </article>
+                {{end}}
+            </div>
+            {{end}}
+        </div>
+    {{end}}
 {{end}}
