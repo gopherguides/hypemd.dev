@@ -1,0 +1,100 @@
+{{define "main"}}
+        <!-- Hero Section -->
+        <div class="mb-16 pt-8">
+            <div class="flex items-center gap-2 text-emerald-400 text-sm mb-6 font-mono">
+                <span class="text-gray-500">$</span>
+                <span>hype build</span>
+            </div>
+            <h1 class="text-5xl font-bold mb-4 font-mono leading-tight">
+                Markdown that <span class="text-emerald-400">executes</span>.
+            </h1>
+            <p class="text-xl text-gray-400 font-mono mb-8 max-w-3xl leading-relaxed">
+                Hype is a content engine for technical writers. Execute code blocks, include files,
+                and validate everything at build time. Your docs are never out of date.
+            </p>
+            <div class="flex gap-4 font-mono text-sm">
+                <a href="https://github.com/gopherguides/hype" class="bg-emerald-500 text-gray-950 px-6 py-3 rounded font-bold hover:bg-emerald-400 transition-colors">
+                    Get Started
+                </a>
+                <a href="https://github.com/gopherguides/hype" class="border border-gray-700 text-gray-300 px-6 py-3 rounded hover:border-emerald-400 hover:text-emerald-400 transition-colors">
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-16">
+            <div class="border border-gray-800 rounded-lg p-6 hover:border-emerald-400/30 transition-colors">
+                <div class="text-emerald-400 font-mono text-sm mb-2">// execute</div>
+                <h3 class="font-mono font-bold mb-2">Code Execution</h3>
+                <p class="text-gray-400 text-sm">Run Go, shell commands, and more directly from your Markdown. Output is captured and included in the final document.</p>
+            </div>
+            <div class="border border-gray-800 rounded-lg p-6 hover:border-emerald-400/30 transition-colors">
+                <div class="text-emerald-400 font-mono text-sm mb-2">// include</div>
+                <h3 class="font-mono font-bold mb-2">File Includes</h3>
+                <p class="text-gray-400 text-sm">Include source files, snippets, and outputs. Keep your documentation DRY and always synchronized with your codebase.</p>
+            </div>
+            <div class="border border-gray-800 rounded-lg p-6 hover:border-emerald-400/30 transition-colors">
+                <div class="text-emerald-400 font-mono text-sm mb-2">// validate</div>
+                <h3 class="font-mono font-bold mb-2">Build-Time Validation</h3>
+                <p class="text-gray-400 text-sm">Broken links, missing files, and failing code are caught at build time. Ship docs you can trust.</p>
+            </div>
+        </div>
+
+        <!-- Install Section -->
+        <div class="mb-16 border border-gray-800 rounded-lg p-6">
+            <div class="text-emerald-400 font-mono text-sm mb-3">// install</div>
+            <div class="bg-gray-900 rounded p-4 font-mono text-sm">
+                <div class="text-gray-500 mb-1"># with Homebrew</div>
+                <div class="text-gray-100">brew install gopherguides/tap/hype</div>
+                <div class="text-gray-500 mt-3 mb-1"># or with Go</div>
+                <div class="text-gray-100">go install github.com/gopherguides/hype/cmd/hype@latest</div>
+            </div>
+        </div>
+
+        <!-- Articles Section -->
+        {{if .Articles}}
+        <div>
+            <div class="flex items-center gap-2 text-emerald-400 text-sm mb-4 font-mono">
+                <span class="text-gray-500">$</span>
+                <span>ls -la articles/</span>
+            </div>
+            <div class="text-gray-500 text-xs font-mono pb-2 border-b border-gray-800">
+                total {{len .Articles}}
+            </div>
+            <div class="space-y-4 mt-4">
+                {{range .Articles}}
+                <article class="group py-4 border-b border-gray-800 hover:bg-gray-900/50 transition-colors -mx-4 px-4">
+                    <div class="flex items-start gap-4">
+                        <div class="text-gray-500 text-xs font-mono whitespace-nowrap pt-1">
+                            {{.FormattedDate}}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h2 class="text-lg font-mono mb-1">
+                                <a href="{{.URL}}" class="text-white hover:text-emerald-400 transition-colors">
+                                    {{.Title}}
+                                </a>
+                            </h2>
+                            {{if .SEODescription}}
+                            <p class="text-gray-400 text-sm line-clamp-2">{{.SEODescription}}</p>
+                            {{end}}
+                            <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 font-mono">
+                                {{if .Author}}<span>@{{.Author}}</span>{{end}}
+                                {{if .ReadingTime}}<span>~{{.ReadingTime}}m</span>{{end}}
+                                {{if .Tags}}
+                                <div class="flex gap-1">
+                                    {{range .Tags}}<span class="text-emerald-600">#{{.}}</span>{{end}}
+                                </div>
+                                {{end}}
+                            </div>
+                        </div>
+                        <a href="{{.URL}}" class="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-sm">
+                            &rarr;
+                        </a>
+                    </div>
+                </article>
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+{{end}}

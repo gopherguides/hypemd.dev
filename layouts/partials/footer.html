@@ -1,0 +1,19 @@
+{{define "partials/footer"}}
+    <footer class="border-t border-gray-800 mt-auto">
+        <div class="max-w-5xl mx-auto px-4 py-6 text-center text-gray-500 font-mono text-sm">
+            <div class="flex justify-center gap-6 mb-3">
+                <a href="https://github.com/gopherguides/hype" class="hover:text-emerald-400 transition-colors">GitHub</a>
+                <a href="https://github.com/gopherguides/hype/issues" class="hover:text-emerald-400 transition-colors">Issues</a>
+                <a href="/rss.xml" class="hover:text-emerald-400 transition-colors">RSS</a>
+            </div>
+            <p>
+                <span class="text-gray-600">//</span>
+                &copy; {{.CurrentYear}} {{.Config.Title}}
+                {{if .Config.Author.Name}}
+                <span class="text-gray-600">|</span>
+                {{.Config.Author.Name}}
+                {{end}}
+            </p>
+        </div>
+    </footer>
+{{end}}

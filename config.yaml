@@ -1,0 +1,16 @@
+title: "Hype"
+description: "Dynamic Markdown — execute code, include files, and validate content at build time"
+baseURL: "https://hypemd.dev"
+author:
+  name: "Gopher Guides"
+  email: ""
+  twitter: ""
+theme: "developer"
+highlight:
+  style: "monokai"
+  lineNumbers: false
+seo:
+  ogImage: "/images/og-default.png"
+  twitterCard: "summary_large_image"
+contentDir: "content"
+outputDir: "public"
