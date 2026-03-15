@@ -88,6 +88,6 @@ This creates a full blog with themes, RSS feeds, sitemaps, and SEO support — a
 
 ## Next Steps
 
-- Read the [full documentation](https://github.com/gopherguides/hype#readme)
+- Read the [full documentation](/docs/)
 - Browse the [source code](https://github.com/gopherguides/hype)
 - Report [issues](https://github.com/gopherguides/hype/issues)
