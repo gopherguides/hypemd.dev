@@ -106,7 +106,7 @@ $ go run .
 Hello World
 
 --------------------------------------------------------------------------------
-Go Version: go1.25.7
+Go Version: go1.25.0
 
 ```
 
@@ -141,7 +141,7 @@ $ go run .
 Hello World
 
 --------------------------------------------------------------------------------
-Go Version: go1.25.7
+Go Version: go1.25.0
 
 ```
 
@@ -172,7 +172,7 @@ $ go run .
 Hello World
 
 --------------------------------------------------------------------------------
-Go Version: go1.25.7
+Go Version: go1.25.0
 
 ```
 
@@ -204,7 +204,7 @@ $ go run .
 ./main.go:7:6: undefined: fmt.Prin
 
 --------------------------------------------------------------------------------
-Go Version: go1.25.7
+Go Version: go1.25.0
 
 ```
 
@@ -243,7 +243,7 @@ type Context interface{ ... }
     func WithoutCancel(parent Context) Context
 
 --------------------------------------------------------------------------------
-Go Version: go1.25.7
+Go Version: go1.25.0
 
 ```
 
@@ -268,7 +268,7 @@ func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
     call cancel as soon as the operations running in this Context complete.
 
 --------------------------------------------------------------------------------
-Go Version: go1.25.7
+Go Version: go1.25.0
 
 ```
 
