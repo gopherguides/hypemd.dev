@@ -1,7 +1,7 @@
-FROM golang:1.24 AS builder
+FROM golang:1.25 AS builder
 RUN go install github.com/gopherguides/hype/cmd/hype@latest
 
-FROM golang:1.24
+FROM golang:1.25
 COPY --from=builder /go/bin/hype /usr/local/bin/hype
 WORKDIR /site
 COPY . .
