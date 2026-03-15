@@ -52,48 +52,41 @@
             </div>
         </div>
 
-        <!-- Articles Section -->
+        <!-- Latest Articles Teaser -->
         {{if .Articles}}
         <div>
-            <div class="flex items-center gap-2 text-emerald-400 text-sm mb-4 font-mono">
-                <span class="text-gray-500">$</span>
-                <span>ls -la articles/</span>
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2 text-emerald-400 text-sm font-mono">
+                    <span class="text-gray-500">$</span>
+                    <span>ls articles/ | head -3</span>
+                </div>
+                <a href="/blog/" class="text-sm font-mono text-gray-400 hover:text-emerald-400 transition-colors">
+                    view all &rarr;
+                </a>
             </div>
-            <div class="text-gray-500 text-xs font-mono pb-2 border-b border-gray-800">
-                total {{len .Articles}}
-            </div>
-            <div class="space-y-4 mt-4">
-                {{range .Articles}}
+            <div class="space-y-4">
+                {{range $i, $a := .Articles}}{{if lt $i 3}}
                 <article class="group py-4 border-b border-gray-800 hover:bg-gray-900/50 transition-colors -mx-4 px-4">
                     <div class="flex items-start gap-4">
                         <div class="text-gray-500 text-xs font-mono whitespace-nowrap pt-1">
-                            {{.FormattedDate}}
+                            {{$a.FormattedDate}}
                         </div>
                         <div class="flex-1 min-w-0">
                             <h2 class="text-lg font-mono mb-1">
-                                <a href="{{.URL}}" class="text-white hover:text-emerald-400 transition-colors">
-                                    {{.Title}}
+                                <a href="{{$a.URL}}" class="text-white hover:text-emerald-400 transition-colors">
+                                    {{$a.Title}}
                                 </a>
                             </h2>
-                            {{if .SEODescription}}
-                            <p class="text-gray-400 text-sm line-clamp-2">{{.SEODescription}}</p>
+                            {{if $a.SEODescription}}
+                            <p class="text-gray-400 text-sm line-clamp-2">{{$a.SEODescription}}</p>
                             {{end}}
-                            <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 font-mono">
-                                {{if .Author}}<span>@{{.Author}}</span>{{end}}
-                                {{if .ReadingTime}}<span>~{{.ReadingTime}}m</span>{{end}}
-                                {{if .Tags}}
-                                <div class="flex gap-1">
-                                    {{range .Tags}}<span class="text-emerald-600">#{{.}}</span>{{end}}
-                                </div>
-                                {{end}}
-                            </div>
                         </div>
-                        <a href="{{.URL}}" class="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-sm">
+                        <a href="{{$a.URL}}" class="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity font-mono text-sm">
                             &rarr;
                         </a>
                     </div>
                 </article>
-                {{end}}
+                {{end}}{{end}}
             </div>
         </div>
         {{end}}
