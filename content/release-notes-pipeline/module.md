@@ -4,7 +4,7 @@
 slug: release-notes-pipeline
 published: 03/15/2026
 author: Cory LaNou
-author_twitter: @caborundrum
+author_twitter: @corylanou
 seo_description: Build a release notes pipeline using Hype with executable code snippets, automated validation, and version-aware documentation that ships with every release.
 tags: tutorial, release-notes, ci-cd, pipeline, hype
 tweet: Bad release notes erode trust. Build a pipeline where every code example compiles, every command runs, and every API ref is verified at build time.
