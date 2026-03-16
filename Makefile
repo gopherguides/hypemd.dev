@@ -1,4 +1,4 @@
-.PHONY: build serve dev clean
+.PHONY: build serve dev clean distribute
 
 build:
 	hype blog build
@@ -17,3 +17,6 @@ docker-build:
 
 docker-run:
 	docker run -p 3000:3000 hypemd-dev
+
+distribute:
+	@./marketing/distribute.sh $(SLUG)
