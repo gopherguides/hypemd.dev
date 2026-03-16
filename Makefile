@@ -1,4 +1,4 @@
-.PHONY: build serve dev clean distribute
+.PHONY: build serve dev clean tweet tweet-dry
 
 build:
 	hype blog build
@@ -18,5 +18,8 @@ docker-build:
 docker-run:
 	docker run -p 3000:3000 hypemd-dev
 
-distribute:
-	@./marketing/distribute.sh $(SLUG)
+tweet:
+	@./marketing/tweet.sh $(SLUG)
+
+tweet-dry:
+	@./marketing/tweet.sh --dry-run $(SLUG)

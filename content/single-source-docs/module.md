@@ -6,6 +6,7 @@ published: 03/15/2026
 author: Cory LaNou
 seo_description: Learn how to use Hype to maintain a single Markdown source that generates both your GitHub README and website documentation, keeping them permanently in sync.
 tags: tutorial, docs, workflow, hype
+tweet: Your README says one thing, your docs site says another. Write it once with Hype and generate both from a single source.
 </details>
 
 Every open source project has the same problem: documentation lives in too many places. Your README says one thing, your docs site says another, and the install instructions in your wiki are three versions behind. You end up maintaining the same content in multiple locations, and they inevitably drift apart.

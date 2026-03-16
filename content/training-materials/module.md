@@ -6,6 +6,7 @@ published: 03/15/2026
 author: Cory LaNou
 seo_description: Learn how to use Hype to build reusable training and course materials with executable code examples, file includes, and modular content that stays in sync with your codebase.
 tags: tutorial, training, education, includes, hype
+tweet: Training materials go stale the moment code changes. Use Hype to build courses with executable examples that stay in sync with your codebase.
 </details>
 
 If you've ever written training materials for a programming course, you know the pain: code examples go stale, exercises drift out of sync with the slides, and updating one module means checking every other module that references it. Hype was built to solve exactly this problem.
