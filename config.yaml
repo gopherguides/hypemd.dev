@@ -4,7 +4,7 @@ baseURL: "https://hypemd.dev"
 author:
   name: "Gopher Guides"
   email: ""
-  twitter: ""
+  twitter: "@hype_markdown"
 theme: "developer"
 highlight:
   style: "monokai"

@@ -4,6 +4,7 @@
 slug: training-materials
 published: 03/15/2026
 author: Cory LaNou
+author_twitter: @caborundrum
 seo_description: Learn how to use Hype to build reusable training and course materials with executable code examples, file includes, and modular content that stays in sync with your codebase.
 tags: tutorial, training, education, includes, hype
 tweet: Training materials go stale the moment code changes. Use Hype to build courses with executable examples that stay in sync with your codebase.

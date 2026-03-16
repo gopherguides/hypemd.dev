@@ -81,50 +81,68 @@ for var in X_API_KEY X_API_SECRET X_ACCESS_TOKEN X_ACCESS_TOKEN_SECRET; do
     fi
 done
 
-urlencode() {
-    local string="$1"
-    python3 -c "import urllib.parse; print(urllib.parse.quote('$string', safe=''))" 2>/dev/null \
-        || printf '%s' "$string" | curl -Gso /dev/null -w '%{url_effective}' --data-urlencode @- '' | cut -c3-
+python3 - "$full_tweet" << 'PYEOF'
+import urllib.parse, hashlib, hmac, base64, time, os, json, secrets, sys, subprocess
+
+tweet = sys.argv[1]
+api_key = os.environ["X_API_KEY"]
+api_secret = os.environ["X_API_SECRET"]
+access_token = os.environ["X_ACCESS_TOKEN"]
+access_token_secret = os.environ["X_ACCESS_TOKEN_SECRET"]
+
+url = "https://api.x.com/2/tweets"
+
+oauth_nonce = secrets.token_hex(16)
+oauth_timestamp = str(int(time.time()))
+
+params = {
+    "oauth_consumer_key": api_key,
+    "oauth_nonce": oauth_nonce,
+    "oauth_signature_method": "HMAC-SHA1",
+    "oauth_timestamp": oauth_timestamp,
+    "oauth_token": access_token,
+    "oauth_version": "1.0",
 }
 
-generate_nonce() {
-    openssl rand -hex 16
-}
+param_string = "&".join(
+    f"{urllib.parse.quote(k, safe='')}={urllib.parse.quote(v, safe='')}"
+    for k, v in sorted(params.items())
+)
+signature_base = f"POST&{urllib.parse.quote(url, safe='')}&{urllib.parse.quote(param_string, safe='')}"
+signing_key = f"{urllib.parse.quote(api_secret, safe='')}&{urllib.parse.quote(access_token_secret, safe='')}"
+signature = base64.b64encode(
+    hmac.new(signing_key.encode(), signature_base.encode(), hashlib.sha1).digest()
+).decode()
 
-oauth_timestamp=$(date +%s)
-oauth_nonce=$(generate_nonce)
+auth_header = (
+    f'OAuth oauth_consumer_key="{urllib.parse.quote(api_key, safe="")}", '
+    f'oauth_nonce="{urllib.parse.quote(oauth_nonce, safe="")}", '
+    f'oauth_signature="{urllib.parse.quote(signature, safe="")}", '
+    f'oauth_signature_method="HMAC-SHA1", '
+    f'oauth_timestamp="{oauth_timestamp}", '
+    f'oauth_token="{urllib.parse.quote(access_token, safe="")}", '
+    f'oauth_version="1.0"'
+)
 
-oauth_consumer_key="$X_API_KEY"
-oauth_token="$X_ACCESS_TOKEN"
-oauth_signature_method="HMAC-SHA1"
-oauth_version="1.0"
+result = subprocess.run(
+    ["curl", "-s", "-w", "\n%{http_code}", "-X", "POST", url,
+     "-H", f"Authorization: {auth_header}",
+     "-H", "Content-Type: application/json",
+     "-d", json.dumps({"text": tweet})],
+    capture_output=True, text=True
+)
 
-escaped_tweet=$(urlencode "$full_tweet")
+output = result.stdout.strip()
+http_code = output.split("\n")[-1]
+body = "\n".join(output.split("\n")[:-1])
 
-param_string="oauth_consumer_key=${oauth_consumer_key}&oauth_nonce=${oauth_nonce}&oauth_signature_method=${oauth_signature_method}&oauth_timestamp=${oauth_timestamp}&oauth_token=${oauth_token}&oauth_version=${oauth_version}"
-
-signature_base="POST&$(urlencode "$API_URL")&$(urlencode "$param_string")"
-
-signing_key="$(urlencode "$X_API_SECRET")&$(urlencode "$X_ACCESS_TOKEN_SECRET")"
-
-oauth_signature=$(printf '%s' "$signature_base" | openssl dgst -sha1 -hmac "$signing_key" -binary | base64)
-
-auth_header="OAuth oauth_consumer_key=\"${oauth_consumer_key}\", oauth_nonce=\"${oauth_nonce}\", oauth_signature=\"$(urlencode "$oauth_signature")\", oauth_signature_method=\"${oauth_signature_method}\", oauth_timestamp=\"${oauth_timestamp}\", oauth_token=\"${oauth_token}\", oauth_version=\"${oauth_version}\""
-
-response=$(curl -s -w "\n%{http_code}" -X POST "$API_URL" \
-    -H "Authorization: ${auth_header}" \
-    -H "Content-Type: application/json" \
-    -d "{\"text\": $(printf '%s' "$full_tweet" | python3 -c 'import sys,json; print(json.dumps(sys.stdin.read()))')}")
-
-http_code=$(echo "$response" | tail -1)
-body=$(echo "$response" | sed '$d')
-
-if [[ "$http_code" == "201" ]]; then
-    tweet_id=$(echo "$body" | python3 -c "import sys,json; print(json.loads(sys.stdin.read())['data']['id'])" 2>/dev/null || echo "unknown")
-    echo "Tweet posted successfully!"
-    echo "https://x.com/hype_markdown/status/${tweet_id}"
-else
-    echo "Error posting tweet (HTTP ${http_code}):" >&2
-    echo "$body" >&2
-    exit 1
-fi
+if http_code == "201":
+    data = json.loads(body)
+    tweet_id = data["data"]["id"]
+    print("Tweet posted successfully!")
+    print(f"https://x.com/hype_markdown/status/{tweet_id}")
+else:
+    print(f"Error posting tweet (HTTP {http_code}):", file=sys.stderr)
+    print(body, file=sys.stderr)
+    sys.exit(1)
+PYEOF
