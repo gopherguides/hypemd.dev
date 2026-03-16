@@ -4,8 +4,10 @@
 slug: engineering-handbook
 published: 03/15/2026
 author: Cory LaNou
+author_twitter: @corylanou
 seo_description: Use Hype to build an internal engineering handbook that stays in sync with your codebase. Executable examples, automated validation, and single-source documentation for your team.
 tags: tutorial, engineering, handbook, automation, hype
+tweet: Your engineering handbook is probably wrong. Not because it was written badly — the code just changed. Here's how to make docs a build artifact with Hype.
 </details>
 
 Every engineering team has internal documentation. Style guides, onboarding docs, architecture decision records, runbook procedures. And almost universally, that documentation is wrong. Not because someone wrote it badly, but because the code changed and nobody updated the docs.

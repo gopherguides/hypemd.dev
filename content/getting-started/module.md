@@ -4,8 +4,10 @@
 slug: getting-started
 published: 03/15/2026
 author: Gopher Guides
+author_twitter: @hype_markdown
 seo_description: Learn how to install Hype, create your first dynamic Markdown document, and execute code blocks at build time.
 tags: tutorial, getting-started, hype
+tweet: What if your Markdown could execute code and catch errors before you publish? Get started with Hype — dynamic Markdown for Go developers.
 </details>
 
 Hype is a content engine that makes Markdown dynamic. You can execute code, include files, and validate everything at build time. This guide walks you through installation and your first hype document.

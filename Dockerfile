@@ -1,5 +1,5 @@
 FROM golang:1.25 AS builder
-RUN go install github.com/gopherguides/hype/cmd/hype@main
+RUN go install github.com/gopherguides/hype/cmd/hype@v0.8.0
 
 FROM golang:1.25
 COPY --from=builder /go/bin/hype /usr/local/bin/hype

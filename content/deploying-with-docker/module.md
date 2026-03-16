@@ -4,8 +4,10 @@
 slug: deploying-with-docker
 published: 03/15/2026
 author: Cory LaNou
+author_twitter: @corylanou
 seo_description: Deploy a Hype-powered blog site with Docker. Covers Dockerfile setup, Dokploy, Heroku, and generic VPS deployment with Docker Compose.
 tags: tutorial, docker, deployment, blog, hype
+tweet: Deploy a Hype-powered blog with Docker — from Dockerfile to production. Covers Dokploy, Heroku, and Docker Compose setups.
 </details>
 
 Hype builds and serves your blog in a single binary. That makes it a natural fit for Docker — one container that builds your site from source and serves it, with no external web server required.
