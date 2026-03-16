@@ -13,17 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
-      - name: Find changed blog posts
+      - name: Find new blog posts
         id: changed
         run: |
-          changed=$(git diff --name-only HEAD~1 HEAD -- 'content/*/module.md' | grep -v '^content/docs' || true)
+          changed=$(git diff --name-only --diff-filter=A ${{ github.event.before }}..${{ github.sha }} -- 'content/*/module.md' | grep -v '^content/docs' || true)
           echo "files<<EOF" >> "$GITHUB_OUTPUT"
           echo "$changed" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
 
-      - name: Tweet changed posts
+      - name: Tweet new posts
         if: steps.changed.outputs.files != ''
         env:
           X_API_KEY: ${{ secrets.X_API_KEY }}
@@ -33,6 +33,10 @@ jobs:
         run: |
           echo "${{ steps.changed.outputs.files }}" | while IFS= read -r file; do
             if [[ -z "$file" ]]; then continue; fi
+            if [[ ! -f "$file" ]]; then
+              echo "Skipping $file — file does not exist"
+              continue
+            fi
             slug=$(basename "$(dirname "$file")")
             tweet_field=$(awk '/<details>/{f=1;next} /<\/details>/{if(f)exit} f' "$file" | grep '^tweet:' | head -1)
             if [[ -z "$tweet_field" ]]; then
