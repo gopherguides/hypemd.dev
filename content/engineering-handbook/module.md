@@ -6,6 +6,7 @@ published: 03/15/2026
 author: Cory LaNou
 author_twitter: @corylanou
 seo_description: Use Hype to build an internal engineering handbook that stays in sync with your codebase. Executable examples, automated validation, and single-source documentation for your team.
+og_image: /images/og-engineering-handbook.png
 tags: tutorial, engineering, handbook, automation, hype
 tweet: Your engineering handbook is probably wrong. Not because it was written badly — the code just changed. Here's how to make docs a build artifact with Hype.
 </details>
