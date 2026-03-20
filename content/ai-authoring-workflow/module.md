@@ -6,6 +6,7 @@ published: 03/15/2026
 author: Cory LaNou
 author_twitter: @corylanou
 seo_description: Learn how to combine AI coding assistants like Claude with Hype's build-time validation to write technical documentation faster while keeping every code example correct.
+og_image: /images/og-ai-authoring.png
 tags: tutorial, ai, authoring, workflow, claude, hype
 tweet: AI can write docs fast, but how do you trust the code examples? Combine Claude with Hype's build-time validation — every snippet is verified before publish.
 </details>
