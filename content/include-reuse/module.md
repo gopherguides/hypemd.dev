@@ -4,7 +4,9 @@
 slug: include-reuse
 published: 10/14/2026
 author: Gopher Guides
+author_twitter: @hype_markdown
 seo_description: Use Hype includes to share explanations and runnable examples across docs, blog posts, and courses. Build a reusable content tree with tested export commands.
+og_image: /images/og-include-reuse.png
 tags: tutorial, includes, reuse, docs, training, hype
 </details>
 
