@@ -4,7 +4,9 @@
 slug: docs-drift
 published: 10/14/2026
 author: Gopher Guides
+author_twitter: @hype_markdown
 seo_description: Keep code samples and command output in sync with Hype's build-time tags. Follow a runnable Go example through source changes, validation, and Markdown export.
+og_image: /images/og-docs-drift.png
 tags: tutorial, docs, code, validation, workflow, hype
 </details>
 
