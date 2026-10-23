@@ -1,0 +1,14 @@
+{{define "partials/head"}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{if .Article}}
+    <title>{{.Article.Title}} | {{.Config.Title}}</title>
+    {{else if eq .PagePath "/blog/"}}
+    <title>Blog | {{.Config.Title}}</title>
+    {{else}}
+    <title>{{.Config.Title}}</title>
+    {{end}}
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate" type="application/rss+xml" title="{{.Config.Title}}" href="{{.Config.BaseURL}}/rss.xml">
+{{end}}
