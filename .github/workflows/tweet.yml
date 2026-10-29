@@ -1,10 +1,7 @@
 name: Tweet New Posts
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "content/*/module.md"
+  workflow_dispatch:
 
 jobs:
   tweet:
